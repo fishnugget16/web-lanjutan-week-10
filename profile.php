@@ -165,15 +165,15 @@ require_once "components/header.php";
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="linear-muted small">Grade Huruf:</span>
-                        <span class="linear-pill <?= getGradePillClass($grade) ?>">Grade <?= $grade ?></span>
+                        <span class="linear-pill <?= getGradeLabelClass($grade) ?>">Grade <?= $grade ?></span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="linear-muted small">Status Kelulusan:</span>
-                        <span class="linear-pill <?= getStatusPillClass($statusKelulusan) ?>"><?= $statusKelulusan ?></span>
+                        <span class="linear-pill <?= getStatusLabelClass($statusKelulusan) ?>"><?= $statusKelulusan ?></span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="linear-muted small">Predikat Prestasi:</span>
-                        <span class="linear-pill <?= getPredikatPillClass($predikat) ?>"><?= $predikat ?></span>
+                        <span class="linear-pill <?= getPredikatLabelClass($predikat) ?>"><?= $predikat ?></span>
                     </div>
                 </div>
             </div>
