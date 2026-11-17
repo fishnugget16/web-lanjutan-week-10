@@ -294,14 +294,14 @@ function perluRemedial($nilai) {
 }
 
 // 13. Helper Class Pill Tampilan UI
-function getGradePillClass($grade) {
+function getGradeLabelClass($grade) {
     return ($grade === 'A' || $grade === 'B') ? 'linear-pill-success' : 'linear-pill-danger';
 }
 
-function getStatusPillClass($status) {
+function getStatusLabelClass($status) {
     return $status === 'LULUS' ? 'linear-pill-success' : 'linear-pill-danger';
 }
 
-function getPredikatPillClass($predikat) {
+function getPredikatLabelClass($predikat) {
     return str_contains($predikat, 'Cum Laude') ? 'linear-pill-primary' : 'linear-pill-default';
 }
