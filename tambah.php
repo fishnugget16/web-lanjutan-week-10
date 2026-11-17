@@ -2,7 +2,7 @@
 
 /**
  * File: tambah.php
- * Halaman Form Tambah Mahasiswa Baru - Linear Design System
+ * Halaman Form Tambah Mahasiswa Baru - Linear Design System & OOP MahasiswaHandler
  * Pure Sans-Serif (Inter), Fully Responsive
  */
 
@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once "config.php";
 require_once "functions.php";
+require_once "classes/MahasiswaHandler.php"; // Panggil class OOP
 
 $nama = "";
 $email = "";
@@ -24,54 +25,20 @@ $errors = [];
 $resultProdi = ambilSemuaProdi($conn);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nama = trim($_POST["nama"] ?? "");
-    $email = trim($_POST["email"] ?? "");
-    $password = trim($_POST["password"] ?? "");
-    $idProdi = $_POST["id_prodi"] ?? "";
-    $tahunMasuk = trim($_POST["tahun_masuk"] ?? "");
+    // Menggunakan Class OOP MahasiswaHandler
+    $handler = new MahasiswaHandler($conn);
+    $berhasil = $handler->prosesPendaftaran($_POST);
 
-    // Validasi Input
-    if ($nama === "") {
-        $errors[] = "Nama lengkap wajib diisi.";
-    }
-
-    if ($email === "") {
-        $errors[] = "Email wajib diisi.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Format email tidak valid.";
-    }
-
-    if ($password === "") {
-        $errors[] = "Password wajib diisi.";
-    }
-
-    if ($idProdi === "") {
-        $errors[] = "Program studi wajib dipilih.";
-    }
-
-    if ($tahunMasuk === "") {
-        $errors[] = "Tahun masuk wajib diisi.";
-    } elseif (!is_numeric($tahunMasuk) || strlen($tahunMasuk) !== 4) {
-        $errors[] = "Tahun masuk harus berupa 4 digit angka (misal: 2026).";
-    }
-
-    // Eksekusi jika tidak ada error
-    if (count($errors) === 0) {
-        $berhasil = tambahMahasiswa(
-            $conn,
-            $nama,
-            $email,
-            $password,
-            (int) $idProdi,
-            (int) $tahunMasuk
-        );
-
-        if ($berhasil) {
-            header("Location: index.php");
-            exit;
-        } else {
-            $errors[] = "Data gagal disimpan. Email mungkin sudah terdaftar.";
-        }
+    if ($berhasil) {
+        header("Location: index.php");
+        exit;
+    } else {
+        $errors = $handler->getErrors();
+        // Ambil kembali input user agar tidak hilang di form saat terjadi error
+        $nama       = trim($_POST["nama"] ?? "");
+        $email      = trim($_POST["email"] ?? "");
+        $idProdi    = $_POST["id_prodi"] ?? "";
+        $tahunMasuk = trim($_POST["tahun_masuk"] ?? "");
     }
 }
 
@@ -96,7 +63,7 @@ require_once "components/header.php";
                 <!-- Header Panel -->
                 <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom" style="border-color: var(--linear-hairline) !important;">
                     <div>
-                        <div class="linear-eyebrow mb-1">Formulir Pendaftaran &bull; Automated NIM Generator</div>
+                        <div class="linear-eyebrow mb-1">Formulir Pendaftaran &bull; Automated NIM Generator &amp; OOP</div>
                         <h2 class="h3 fw-semibold mb-0">Tambah Mahasiswa Baru</h2>
                         <p class="linear-muted small mb-0">NIM akan di-generate otomatis oleh sistem setelah disimpan</p>
                     </div>
