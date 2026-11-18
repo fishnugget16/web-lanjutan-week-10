@@ -31,10 +31,10 @@ $nilaiUAS   = (float) $user["nilai_uas"];
 $kehadiran  = (int) $user["kehadiran"];
 
 // Kalkulasi capaian belajar
-$nilaiAkhir      = hitungNilaiAkhir($nilaiTugas, $nilaiUTS, $nilaiUAS);
-$grade           = tentukanGrade($nilaiAkhir);
-$statusKelulusan = tentukanStatusKelulusan($nilaiAkhir, $kehadiran);
-$predikat        = tentukanPredikat($nilaiAkhir, $kehadiran);
+$nilaiAkhir      = hitungHasilAkhir($nilaiTugas, $nilaiUTS, $nilaiUAS);
+$grade           = tentukanAkreditasi($nilaiAkhir);
+$statusKelulusan = tentukanKelulusan($nilaiAkhir, $kehadiran);
+$predikat        = tentukanPujian($nilaiAkhir, $kehadiran);
 
 $pageTitle = "Profil Mahasiswa";
 require_once "components/header.php";

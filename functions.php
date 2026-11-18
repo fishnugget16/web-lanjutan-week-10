@@ -257,11 +257,11 @@ function hapusMahasiswa($conn, $id) {
 }
 
 // 12. Helper Perhitungan Akademik
-function hitungNilaiAkhir($tugas, $uts, $uas) {
+function hitungHasilAkhir($tugas, $uts, $uas) {
     return ($tugas * 0.30) + ($uts * 0.30) + ($uas * 0.40);
 }
 
-function tentukanGrade($nilai) {
+function tentukanAkreditasi($nilai) {
     if ($nilai >= 85) return 'A';
     if ($nilai >= 75) return 'B';
     if ($nilai >= 65) return 'C';
@@ -269,11 +269,11 @@ function tentukanGrade($nilai) {
     return 'E';
 }
 
-function tentukanStatusKelulusan($nilai, $kehadiran) {
+function tentukanKelulusan($nilai, $kehadiran) {
     return ($nilai >= 60 && $kehadiran >= 75) ? 'LULUS' : 'TIDAK LULUS';
 }
 
-function tentukanPredikat($nilai, $kehadiran) {
+function tentukanPujian($nilai, $kehadiran) {
     if ($nilai >= 85 && $kehadiran >= 85) return 'Dengan Pujian (Cum Laude)';
     if ($nilai >= 75) return 'Sangat Memuaskan';
     if ($nilai >= 60) return 'Memuaskan';
