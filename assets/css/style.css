@@ -116,10 +116,10 @@ h4, .h4 { font-size: 16px; font-weight: 600; line-height: 1.35; letter-spacing: 
 h5, h6, .h5, .h6 { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; color: var(--linear-ink); }
 p, span, label, small { letter-spacing: -0.01em; }
 
-.text-muted, .linear-muted { color: var(--linear-ink-subtle) !important; }
+.text-muted, :is(.linear-muted, .teks-redup) { color: var(--linear-ink-subtle) !important; }
 .text-tertiary { color: var(--linear-ink-tertiary) !important; }
 
-.linear-eyebrow {
+:is(.linear-eyebrow, .label-atas) {
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -209,7 +209,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
 /* ==========================================================================
    Dropdown menu — kaca buram (blur 48px, opacity 0.88) + animasi fluid
    ========================================================================== */
-.dropdown-menu-linear {
+:is(.dropdown-menu-linear, .menu-dropdown-kustom) {
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
@@ -245,7 +245,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     }
 }
 
-[data-bs-theme="light"] .dropdown-menu-linear {
+[data-bs-theme="light"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) {
     background-color: rgba(255, 255, 255, 0.88);
     border-color: rgba(255, 255, 255, 0.9);
     box-shadow:
@@ -253,7 +253,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
         inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
-.dropdown-item-linear {
+:is(.dropdown-item-linear, .item-dropdown-kustom) {
     display: flex; align-items: center; gap: 8px;
     padding: 7px 10px;
     border-radius: var(--linear-radius-sm);
@@ -263,11 +263,11 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     opacity: 0;
     animation: dropdownItemSlideIn 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-.dropdown-item-linear:nth-child(1) { animation-delay: 40ms; }
-.dropdown-item-linear:nth-child(2) { animation-delay: 80ms; }
-.dropdown-item-linear:nth-child(3) { animation-delay: 120ms; }
-.dropdown-item-linear:nth-child(4) { animation-delay: 160ms; }
-.dropdown-item-linear:nth-child(5) { animation-delay: 200ms; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):nth-child(1) { animation-delay: 40ms; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):nth-child(2) { animation-delay: 80ms; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):nth-child(3) { animation-delay: 120ms; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):nth-child(4) { animation-delay: 160ms; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):nth-child(5) { animation-delay: 200ms; }
 
 @keyframes dropdownItemSlideIn {
     0% {
@@ -280,8 +280,8 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     }
 }
 
-.dropdown-item-linear:hover { background-color: var(--linear-surface-4); color: var(--linear-ink); }
-.dropdown-item-linear.text-danger:hover { background-color: var(--linear-semantic-danger-subtle); color: #ff6b6b !important; }
+:is(.dropdown-item-linear, .item-dropdown-kustom):hover { background-color: var(--linear-surface-4); color: var(--linear-ink); }
+:is(.dropdown-item-linear, .item-dropdown-kustom).text-danger:hover { background-color: var(--linear-semantic-danger-subtle); color: #ff6b6b !important; }
 
 @media (max-width: 991.98px) {
     .user-dropdown-container { width: 100%; margin-top: 10px; }
@@ -292,7 +292,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
 }
 
 /* Buttons */
-.btn-linear-primary {
+:is(.btn-linear-primary, .tombol-utama) {
     background-color: var(--linear-primary);
     color: var(--linear-on-primary) !important;
     font-size: 13px; font-weight: 500;
@@ -303,14 +303,14 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     transition: all var(--linear-transition);
     text-decoration: none;
 }
-.btn-linear-primary:hover {
+:is(.btn-linear-primary, .tombol-utama):hover {
     background-color: var(--linear-primary-hover);
     border-color: var(--linear-primary-hover);
     color: #ffffff !important;
 }
-.btn-linear-primary:active { background-color: var(--linear-primary-focus); }
+:is(.btn-linear-primary, .tombol-utama):active { background-color: var(--linear-primary-focus); }
 
-.btn-linear-secondary {
+:is(.btn-linear-secondary, .tombol-sekunder) {
     background-color: var(--linear-surface-1);
     color: var(--linear-ink) !important;
     font-size: 13px; font-weight: 500;
@@ -321,13 +321,13 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     transition: all var(--linear-transition);
     text-decoration: none;
 }
-.btn-linear-secondary:hover {
+:is(.btn-linear-secondary, .tombol-sekunder):hover {
     background-color: var(--linear-surface-2);
     border-color: var(--linear-hairline-strong);
     color: var(--linear-ink) !important;
 }
 
-.btn-linear-ghost {
+:is(.btn-linear-ghost, .tombol-ghost) {
     background-color: transparent;
     color: var(--linear-ink-subtle) !important;
     font-size: 13px; font-weight: 500;
@@ -338,14 +338,14 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     transition: all var(--linear-transition);
     text-decoration: none;
 }
-.btn-linear-ghost:hover {
+:is(.btn-linear-ghost, .tombol-ghost):hover {
     color: var(--linear-ink) !important;
     background-color: var(--linear-surface-1);
     border-color: var(--linear-hairline);
 }
 
 /* Cards */
-.linear-card {
+:is(.linear-card, .kartu-form) {
     background-color: var(--linear-surface-1);
     border: 1px solid var(--linear-hairline);
     border-radius: var(--linear-radius-lg);
@@ -355,7 +355,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
         inset 0 1px 0 rgba(255, 255, 255, 0.03);
     transition: border-color var(--linear-transition), box-shadow var(--linear-transition);
 }
-[data-bs-theme="light"] .linear-card {
+[data-bs-theme="light"] :is(.linear-card, .kartu-form) {
     box-shadow:
         0 4px 16px rgba(15, 20, 30, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -375,7 +375,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-@media (max-width: 575.98px) { .linear-card { padding: 16px; } }
+@media (max-width: 575.98px) { :is(.linear-card, .kartu-form) { padding: 16px; } }
 
 /* Pills & badges */
 .linear-pill {
@@ -616,7 +616,7 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
 .linear-footer a:hover { color: var(--linear-primary); }
 
 /* Alert */
-.linear-alert {
+:is(.linear-alert, .kotak-notif) {
     background-color: var(--linear-surface-2);
     border: 1px solid var(--linear-hairline-strong);
     border-radius: var(--linear-radius-md);
@@ -624,12 +624,12 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     font-size: 13px;
     color: var(--linear-ink);
 }
-.linear-alert-danger {
+:is(.linear-alert-danger, .kotak-notif-error) {
     background-color: var(--linear-semantic-danger-subtle);
     border-color: rgba(235, 87, 87, 0.4);
     color: #ff8080;
 }
-[data-bs-theme="light"] .linear-alert-danger { color: #c62828; }
+[data-bs-theme="light"] :is(.linear-alert-danger, .kotak-notif-error) { color: #c62828; }
 
 /* ==========================================================================
    Modal — konfirmasi logout (light mode kontras tinggi)
@@ -726,20 +726,20 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
     border-top: none;
 }
 
-.linear-modal-footer .btn-linear-primary,
-.linear-modal-footer .btn-linear-ghost {
+.linear-modal-footer :is(.btn-linear-primary, .tombol-utama),
+.linear-modal-footer :is(.btn-linear-ghost, .tombol-ghost) {
     justify-content: center;
     padding: 8px 14px;
     font-size: 13px;
 }
 
-[data-bs-theme="light"] .linear-modal-footer .btn-linear-ghost {
+[data-bs-theme="light"] .linear-modal-footer :is(.btn-linear-ghost, .tombol-ghost) {
     color: #4b5563 !important;
     background-color: #f4f5f7;
     border-color: #e3e6ec;
 }
 
-[data-bs-theme="light"] .linear-modal-footer .btn-linear-ghost:hover {
+[data-bs-theme="light"] .linear-modal-footer :is(.btn-linear-ghost, .tombol-ghost):hover {
     background-color: #ebedf0;
     border-color: #cfd4dc;
     color: #0e1017 !important;
@@ -747,8 +747,8 @@ input.form-control:focus, textarea.form-control:focus, select.form-select:focus 
 
 @media (max-width: 575.98px) {
     .linear-modal-footer { flex-direction: column-reverse; }
-    .linear-modal-footer .btn-linear-primary,
-    .linear-modal-footer .btn-linear-ghost { width: 100%; }
+    .linear-modal-footer :is(.btn-linear-primary, .tombol-utama),
+    .linear-modal-footer :is(.btn-linear-ghost, .tombol-ghost) { width: 100%; }
 }
 
 /* Landing */
@@ -842,7 +842,7 @@ html[data-liquid-glass="true"][data-bs-theme="light"] body {
 }
 
 /* Card, theme card, demo chip — kaca */
-html[data-liquid-glass="true"] .linear-card,
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form),
 html[data-liquid-glass="true"] .linear-theme-card,
 html[data-liquid-glass="true"] .demo-chip {
     background-color: rgba(15, 16, 17, 0.22);
@@ -856,10 +856,10 @@ html[data-liquid-glass="true"] .demo-chip {
         inset 0 -1px 0 rgba(255, 255, 255, 0.04);
     transition: all var(--morph-duration) cubic-bezier(0.16, 1, 0.3, 1);
 }
-[data-bs-theme="light"] html[data-liquid-glass="true"] .linear-card,
+[data-bs-theme="light"] html[data-liquid-glass="true"] :is(.linear-card, .kartu-form),
 [data-bs-theme="light"] html[data-liquid-glass="true"] .linear-theme-card,
 [data-bs-theme="light"] html[data-liquid-glass="true"] .demo-chip,
-html[data-liquid-glass="true"][data-bs-theme="light"] .linear-card,
+html[data-liquid-glass="true"][data-bs-theme="light"] :is(.linear-card, .kartu-form),
 html[data-liquid-glass="true"][data-bs-theme="light"] .linear-theme-card,
 html[data-liquid-glass="true"][data-bs-theme="light"] .demo-chip {
     background-color: rgba(255, 255, 255, 0.28);
@@ -902,7 +902,7 @@ html[data-liquid-glass="true"] .linear-card-interactive:hover {
 }
 
 /* Buttons */
-html[data-liquid-glass="true"] .btn-linear-primary {
+html[data-liquid-glass="true"] :is(.btn-linear-primary, .tombol-utama) {
     background-color: rgba(94, 106, 210, 0.75);
     backdrop-filter: blur(20px) saturate(200%);
     -webkit-backdrop-filter: blur(20px) saturate(200%);
@@ -912,7 +912,7 @@ html[data-liquid-glass="true"] .btn-linear-primary {
         inset 0 -1px 0 rgba(0, 0, 0, 0.10),
         0 8px 24px rgba(94, 106, 210, 0.35);
 }
-html[data-liquid-glass="true"] .btn-linear-primary:hover {
+html[data-liquid-glass="true"] :is(.btn-linear-primary, .tombol-utama):hover {
     background-color: rgba(130, 143, 255, 0.85);
     border-color: rgba(200, 210, 255, 0.7);
     transform: translateY(-2px);
@@ -921,7 +921,7 @@ html[data-liquid-glass="true"] .btn-linear-primary:hover {
         inset 0 -1px 0 rgba(0, 0, 0, 0.10),
         0 12px 32px rgba(94, 106, 210, 0.5);
 }
-html[data-liquid-glass="true"] .btn-linear-secondary,
+html[data-liquid-glass="true"] :is(.btn-linear-secondary, .tombol-sekunder),
 html[data-liquid-glass="true"] .btn-user-dropdown {
     background-color: rgba(15, 16, 17, 0.35);
     backdrop-filter: blur(20px) saturate(180%);
@@ -931,9 +931,9 @@ html[data-liquid-glass="true"] .btn-user-dropdown {
         inset 0 1px 0 rgba(255, 255, 255, 0.10),
         0 4px 16px rgba(0, 0, 0, 0.20);
 }
-[data-bs-theme="light"] html[data-liquid-glass="true"] .btn-linear-secondary,
+[data-bs-theme="light"] html[data-liquid-glass="true"] :is(.btn-linear-secondary, .tombol-sekunder),
 [data-bs-theme="light"] html[data-liquid-glass="true"] .btn-user-dropdown,
-html[data-liquid-glass="true"][data-bs-theme="light"] .btn-linear-secondary,
+html[data-liquid-glass="true"][data-bs-theme="light"] :is(.btn-linear-secondary, .tombol-sekunder),
 html[data-liquid-glass="true"][data-bs-theme="light"] .btn-user-dropdown {
     background-color: rgba(255, 255, 255, 0.5);
     border-color: rgba(255, 255, 255, 0.8);
@@ -941,18 +941,18 @@ html[data-liquid-glass="true"][data-bs-theme="light"] .btn-user-dropdown {
         inset 0 1px 0 rgba(255, 255, 255, 0.85),
         0 4px 16px rgba(15, 20, 30, 0.08);
 }
-html[data-liquid-glass="true"] .btn-linear-secondary:hover,
+html[data-liquid-glass="true"] :is(.btn-linear-secondary, .tombol-sekunder):hover,
 html[data-liquid-glass="true"] .btn-user-dropdown:hover,
 html[data-liquid-glass="true"] .btn-user-dropdown[aria-expanded="true"] {
     background-color: rgba(20, 21, 22, 0.55);
     border-color: rgba(255, 255, 255, 0.22);
     transform: translateY(-1px);
 }
-html[data-liquid-glass="true"] .btn-linear-ghost {
+html[data-liquid-glass="true"] :is(.btn-linear-ghost, .tombol-ghost) {
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
 }
-html[data-liquid-glass="true"] .btn-linear-ghost:hover {
+html[data-liquid-glass="true"] :is(.btn-linear-ghost, .tombol-ghost):hover {
     background-color: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.12);
 }
@@ -1020,7 +1020,7 @@ html[data-liquid-glass="true"][data-bs-theme="light"] .linear-nav {
     border-bottom-color: rgba(0, 0, 0, 0.06);
 }
 
-html[data-liquid-glass="true"] .dropdown-menu-linear {
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) {
     background-color: rgba(20, 21, 22, 0.75);
     backdrop-filter: blur(48px) saturate(220%);
     -webkit-backdrop-filter: blur(48px) saturate(220%);
@@ -1033,8 +1033,8 @@ html[data-liquid-glass="true"] .dropdown-menu-linear {
     top: 100% !important;
     margin-top: 8px !important;
 }
-[data-bs-theme="light"] html[data-liquid-glass="true"] .dropdown-menu-linear,
-html[data-liquid-glass="true"][data-bs-theme="light"] .dropdown-menu-linear {
+[data-bs-theme="light"] html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom),
+html[data-liquid-glass="true"][data-bs-theme="light"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) {
     background-color: rgba(255, 255, 255, 0.75);
     border-color: rgba(255, 255, 255, 0.9);
     box-shadow:
@@ -1042,15 +1042,15 @@ html[data-liquid-glass="true"][data-bs-theme="light"] .dropdown-menu-linear {
         inset 0 1px 0 rgba(255, 255, 255, 0.95),
         inset 0 -1px 0 rgba(255, 255, 255, 0.3);
 }
-html[data-liquid-glass="true"] .dropdown-item-linear:hover {
+html[data-liquid-glass="true"] :is(.dropdown-item-linear, .item-dropdown-kustom):hover {
     background-color: rgba(255, 255, 255, 0.07);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-html[data-liquid-glass="true"] .dropdown-item-linear.text-danger:hover {
+html[data-liquid-glass="true"] :is(.dropdown-item-linear, .item-dropdown-kustom).text-danger:hover {
     background-color: rgba(235, 87, 87, 0.18);
 }
-html[data-liquid-glass="true"] .dropdown-menu-linear .border-bottom,
-html[data-liquid-glass="true"] .dropdown-menu-linear .dropdown-divider {
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) .border-bottom,
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) .dropdown-divider {
     border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -1107,14 +1107,14 @@ html[data-liquid-glass="true"] .linear-progress {
     background-color: rgba(255, 255, 255, 0.08);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-html[data-liquid-glass="true"] .linear-alert {
+html[data-liquid-glass="true"] :is(.linear-alert, .kotak-notif) {
     background-color: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-color: rgba(255, 255, 255, 0.12);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
-html[data-liquid-glass="true"] .linear-alert-danger {
+html[data-liquid-glass="true"] :is(.linear-alert-danger, .kotak-notif-error) {
     background-color: rgba(235, 87, 87, 0.18);
     border-color: rgba(255, 140, 140, 0.3);
 }
@@ -1131,15 +1131,15 @@ html[data-liquid-glass="true"][data-bs-theme="light"] .linear-footer {
 }
 
 /* Chromatic aberration */
-html[data-liquid-glass="true"] .linear-card,
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form),
 html[data-liquid-glass="true"] .linear-modal-content,
-html[data-liquid-glass="true"] .dropdown-menu-linear {
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom) {
     position: relative;
     overflow: hidden;
 }
-html[data-liquid-glass="true"] .linear-card::before,
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form)::before,
 html[data-liquid-glass="true"] .linear-modal-content::before,
-html[data-liquid-glass="true"] .dropdown-menu-linear::before {
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1157,9 +1157,9 @@ html[data-liquid-glass="true"] .dropdown-menu-linear::before {
     opacity: 0.8;
     transition: opacity var(--morph-duration) cubic-bezier(0.16, 1, 0.3, 1);
 }
-html[data-liquid-glass="true"] .linear-card:hover::before,
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form):hover::before,
 html[data-liquid-glass="true"] .linear-modal-content:hover::before,
-html[data-liquid-glass="true"] .dropdown-menu-linear:hover::before {
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom):hover::before {
     opacity: 1;
 }
 
@@ -1175,7 +1175,7 @@ html[data-liquid-glass="true"] .linear-brand-icon {
 }
 
 /* Morphing card */
-html[data-liquid-glass="true"] .linear-card {
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form) {
     animation: liquidMorph 12s ease-in-out infinite alternate;
 }
 @keyframes liquidMorph {
@@ -1185,9 +1185,9 @@ html[data-liquid-glass="true"] .linear-card {
 }
 
 /* Transition */
-html[data-liquid-glass="true"] .linear-card,
-html[data-liquid-glass="true"] .btn-linear-primary,
-html[data-liquid-glass="true"] .btn-linear-secondary,
+html[data-liquid-glass="true"] :is(.linear-card, .kartu-form),
+html[data-liquid-glass="true"] :is(.btn-linear-primary, .tombol-utama),
+html[data-liquid-glass="true"] :is(.btn-linear-secondary, .tombol-sekunder),
 html[data-liquid-glass="true"] .btn-user-dropdown,
 html[data-liquid-glass="true"] .form-control,
 html[data-liquid-glass="true"] .form-select,
@@ -1196,13 +1196,13 @@ html[data-liquid-glass="true"] .linear-pill,
 html[data-liquid-glass="true"] .linear-avatar,
 html[data-liquid-glass="true"] .linear-avatar-lg,
 html[data-liquid-glass="true"] .linear-nav,
-html[data-liquid-glass="true"] .dropdown-menu-linear,
-html[data-liquid-glass="true"] .dropdown-item-linear,
+html[data-liquid-glass="true"] :is(.dropdown-menu-linear, .menu-dropdown-kustom),
+html[data-liquid-glass="true"] :is(.dropdown-item-linear, .item-dropdown-kustom),
 html[data-liquid-glass="true"] .linear-modal-content,
 html[data-liquid-glass="true"] .linear-modal-icon,
 html[data-liquid-glass="true"] .linear-table tbody td,
 html[data-liquid-glass="true"] .linear-table tfoot td,
-html[data-liquid-glass="true"] .linear-alert,
+html[data-liquid-glass="true"] :is(.linear-alert, .kotak-notif),
 html[data-liquid-glass="true"] .linear-progress,
 html[data-liquid-glass="true"] .linear-theme-card,
 html[data-liquid-glass="true"] .demo-chip {
@@ -1222,8 +1222,8 @@ html[data-liquid-glass="true"] .demo-chip {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    .dropdown-menu-linear,
-    .dropdown-item-linear {
+    :is(.dropdown-menu-linear, .menu-dropdown-kustom),
+    :is(.dropdown-item-linear, .item-dropdown-kustom) {
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
