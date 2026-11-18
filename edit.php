@@ -15,97 +15,97 @@ require_once "functions.php";
 // Memastikan Pengguna Sudah Login
 cekLogin();
 
-$id = $_GET["id"] ?? "";
+$idMahasiswa = $_GET["id"] ?? "";
 
-if ($id === "" || !is_numeric($id)) {
+if ($idMahasiswa === "" || !is_numeric($idMahasiswa)) {
     header("Location: index.php");
     exit;
 }
 
-$mahasiswa = ambilMahasiswaById($conn, (int) $id);
+$dataMhs = ambilMahasiswaById($conn, (int) $idMahasiswa);
 
-if ($mahasiswa === null) {
+if ($dataMhs === null) {
     header("Location: index.php");
     exit;
 }
 
-$errors = [];
+$daftarError = [];
 
-$nim        = $mahasiswa["nim"];
-$nama       = $mahasiswa["nama"];
-$email      = $mahasiswa["email"];
-$idProdi    = $mahasiswa["id_prodi"];
-$tahunMasuk = $mahasiswa["tahun_masuk"];
+$nimSekarang        = $dataMhs["nim"];
+$namaLengkap       = $dataMhs["nama"];
+$emailMhs      = $dataMhs["email"];
+$prodiDipilih    = $dataMhs["id_prodi"];
+$angkatan = $dataMhs["tahun_masuk"];
 
 // Ambil semua prodi untuk custom dropdown
-$resultProdi = ambilSemuaProdi($conn);
-$prodiList = [];
-if ($resultProdi) {
-    while ($p = $resultProdi->fetch_assoc()) {
-        $prodiList[] = $p;
+$hasilProdi = ambilSemuaProdi($conn);
+$daftarProdi = [];
+if ($hasilProdi) {
+    while ($itemProdi = $hasilProdi->fetch_assoc()) {
+        $daftarProdi[] = $itemProdi;
     }
 }
 
 // Cari nama prodi terpilih
-$selectedProdiText = "Pilih Program Studi";
-foreach ($prodiList as $p) {
-    if ($p["id_prodi"] == $idProdi) {
-        $selectedProdiText = $p["nama_prodi"];
+$labelProdiTerpilih = "Pilih Program Studi";
+foreach ($daftarProdi as $itemProdi) {
+    if ($itemProdi["id_prodi"] == $prodiDipilih) {
+        $labelProdiTerpilih = $itemProdi["nama_prodi"];
         break;
     }
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nama       = trim($_POST["nama"] ?? "");
-    $email      = trim($_POST["email"] ?? "");
-    $idProdi    = $_POST["id_prodi"] ?? "";
-    $tahunMasuk = trim($_POST["tahun_masuk"] ?? "");
+    $namaLengkap       = trim($_POST["nama"] ?? "");
+    $emailMhs      = trim($_POST["email"] ?? "");
+    $prodiDipilih    = $_POST["id_prodi"] ?? "";
+    $angkatan = trim($_POST["tahun_masuk"] ?? "");
 
     // Validasi Input
-    if ($nama === "") {
-        $errors[] = "Nama lengkap wajib diisi.";
+    if ($namaLengkap === "") {
+        $daftarError[] = "Nama lengkap wajib diisi.";
     }
 
-    if ($email === "") {
-        $errors[] = "Email wajib diisi.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Format email tidak valid.";
+    if ($emailMhs === "") {
+        $daftarError[] = "Email wajib diisi.";
+    } elseif (!filter_var($emailMhs, FILTER_VALIDATE_EMAIL)) {
+        $daftarError[] = "Format email tidak valid.";
     }
 
-    if ($idProdi === "") {
-        $errors[] = "Program studi wajib dipilih.";
+    if ($prodiDipilih === "") {
+        $daftarError[] = "Program studi wajib dipilih.";
     }
 
-    if ($tahunMasuk === "") {
-        $errors[] = "Tahun masuk wajib diisi.";
-    } elseif (!is_numeric($tahunMasuk) || strlen($tahunMasuk) !== 4) {
-        $errors[] = "Tahun masuk harus berupa 4 digit angka (misal: 2026).";
+    if ($angkatan === "") {
+        $daftarError[] = "Tahun masuk wajib diisi.";
+    } elseif (!is_numeric($angkatan) || strlen($angkatan) !== 4) {
+        $daftarError[] = "Tahun masuk harus berupa 4 digit angka (misal: 2026).";
     }
 
     // Update label prodi jika ada error
-    foreach ($prodiList as $p) {
-        if ($p["id_prodi"] == $idProdi) {
-            $selectedProdiText = $p["nama_prodi"];
+    foreach ($daftarProdi as $itemProdi) {
+        if ($itemProdi["id_prodi"] == $prodiDipilih) {
+            $labelProdiTerpilih = $itemProdi["nama_prodi"];
             break;
         }
     }
 
     // Eksekusi jika validasi lolos
-    if (count($errors) === 0) {
-        $berhasil = updateMahasiswa(
+    if (count($daftarError) === 0) {
+        $sukses = updateMahasiswa(
             $conn,
-            (int) $id,
-            $nama,
-            $email,
-            (int) $idProdi,
-            (int) $tahunMasuk
+            (int) $idMahasiswa,
+            $namaLengkap,
+            $emailMhs,
+            (int) $prodiDipilih,
+            (int) $angkatan
         );
 
-        if ($berhasil) {
+        if ($sukses) {
             header("Location: index.php?status=updated");
             exit;
         } else {
-            $errors[] = "Data gagal diperbarui. Email mungkin sudah terdaftar.";
+            $daftarError[] = "Data gagal diperbarui. Email mungkin sudah terdaftar.";
         }
     }
 }
@@ -116,55 +116,55 @@ require_once "components/header.php";
 
 <div class="container-xl py-4">
     <!-- Breadcrumb Nav -->
-    <div class="d-flex align-items-center gap-2 mb-3 linear-muted small">
-        <a href="dashboard.php" class="text-decoration-none linear-muted">
+    <div class="d-flex align-items-center gap-2 mb-3 teks-redup small">
+        <a href="dashboard.php" class="text-decoration-none teks-redup">
             <i class="bi bi-columns-gap me-1"></i> Dashboard
         </a>
         <span>/</span>
-        <a href="index.php" class="text-decoration-none linear-muted">Data Mahasiswa</a>
+        <a href="index.php" class="text-decoration-none teks-redup">Data Mahasiswa</a>
         <span>/</span>
         <span class="text-body fw-medium">Edit Mahasiswa</span>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
-            <div class="linear-card p-4 p-md-5">
+            <div class="kartu-form p-4 p-md-5">
 
                 <!-- Header Panel -->
                 <div class="d-flex align-items-center justify-content-between pb-3 mb-4 border-bottom" style="border-color: var(--linear-hairline) !important;">
                     <div>
-                        <div class="linear-eyebrow mb-1">Pembaruan Data &bull; Auto Regenerate NIM</div>
+                        <div class="label-atas mb-1">Pembaruan Data &bull; Auto Regenerate NIM</div>
                         <h2 class="h3 fw-semibold mb-0">Edit Data Mahasiswa</h2>
-                        <p class="linear-muted small mb-0">NIM akan otomatis terhitung ulang jika Program Studi atau Tahun Masuk diubah</p>
+                        <p class="teks-redup small mb-0">NIM akan otomatis terhitung ulang jika Program Studi atau Tahun Masuk diubah</p>
                     </div>
-                    <a href="index.php" class="btn-linear-ghost text-decoration-none small">
+                    <a href="index.php" class="tombol-ghost text-decoration-none small">
                         <i class="bi bi-arrow-left me-1"></i> Kembali
                     </a>
                 </div>
 
                 <!-- Banner Error -->
-                <?php if (count($errors) > 0): ?>
-                    <div class="linear-alert linear-alert-danger d-flex flex-column gap-1 mb-4 p-3 small">
+                <?php if (count($daftarError) > 0): ?>
+                    <div class="kotak-notif kotak-notif-error d-flex flex-column gap-1 mb-4 p-3 small">
                         <div class="fw-semibold d-flex align-items-center gap-2">
                             <i class="bi bi-exclamation-circle-fill"></i> Terjadi Kesalahan Input:
                         </div>
                         <ul class="mb-0 ps-4">
-                            <?php foreach ($errors as $error): ?>
-                                <li><?= htmlspecialchars($error) ?></li>
+                            <?php foreach ($daftarError as $pesanError): ?>
+                                <li><?= htmlspecialchars($pesanError) ?></li>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                 <?php endif; ?>
 
                 <!-- Form Inputs -->
-                <form method="POST" action="edit.php?id=<?= $id ?>">
+                <form method="POST" action="edit.php?id=<?= $idMahasiswa ?>">
                     <!-- Informasional NIM Saat Ini -->
                     <div class="mb-3">
                         <label class="form-label small fw-medium mb-1">NIM Saat Ini (Auto Generated)</label>
                         <input 
                             type="text" 
                             class="form-control text-secondary" 
-                            value="<?= htmlspecialchars($nim) ?>" 
+                            value="<?= htmlspecialchars($nimSekarang) ?>" 
                             disabled 
                             readonly 
                             style="background-color: var(--linear-surface-2);">
@@ -177,7 +177,7 @@ require_once "components/header.php";
                             class="form-control"
                             id="nama"
                             name="nama"
-                            value="<?= htmlspecialchars($nama) ?>"
+                            value="<?= htmlspecialchars($namaLengkap) ?>"
                             required>
                     </div>
 
@@ -188,7 +188,7 @@ require_once "components/header.php";
                             class="form-control"
                             id="email"
                             name="email"
-                            value="<?= htmlspecialchars($email) ?>"
+                            value="<?= htmlspecialchars($emailMhs) ?>"
                             required>
                     </div>
 
@@ -198,30 +198,30 @@ require_once "components/header.php";
                             <label class="form-label small fw-medium mb-1">Program Studi</label>
                             
                             <!-- Hidden input nilai id_prodi -->
-                            <input type="hidden" name="id_prodi" id="id_prodi" value="<?= htmlspecialchars($idProdi) ?>" required>
+                            <input type="hidden" name="id_prodi" id="inputProdi" value="<?= htmlspecialchars($prodiDipilih) ?>" required>
 
                             <div class="dropdown w-100">
                                 <button class="form-control d-flex align-items-center justify-content-between w-100 text-start" 
                                         type="button" 
-                                        id="dropdownProdiBtn" 
+                                        id="tombolDropdownProdi" 
                                         data-bs-toggle="dropdown" 
                                         aria-expanded="false"
                                         style="cursor: pointer; min-height: 38px;">
-                                    <span class="text-truncate" id="selectedProdiLabel">
-                                        <?= htmlspecialchars($selectedProdiText) ?>
+                                    <span class="text-truncate" id="labelProdiTerpilih">
+                                        <?= htmlspecialchars($labelProdiTerpilih) ?>
                                     </span>
-                                    <i class="bi bi-chevron-down ms-2 small linear-muted"></i>
+                                    <i class="bi bi-chevron-down ms-2 small teks-redup"></i>
                                 </button>
 
-                                <ul class="dropdown-menu dropdown-menu-linear w-100 mt-2" aria-labelledby="dropdownProdiBtn">
-                                    <?php foreach ($prodiList as $prodi): ?>
+                                <ul class="dropdown-menu menu-dropdown-kustom w-100 mt-2" aria-labelledby="tombolDropdownProdi">
+                                    <?php foreach ($daftarProdi as $itemProdi): ?>
                                         <li>
-                                            <a class="dropdown-item-linear custom-prodi-item <?= $idProdi == $prodi["id_prodi"] ? "active" : "" ?>" 
+                                            <a class="item-dropdown-kustom pilihan-prodi <?= $prodiDipilih == $itemProdi["id_prodi"] ? "active" : "" ?>" 
                                                href="#" 
-                                               data-value="<?= $prodi["id_prodi"] ?>" 
-                                               data-text="<?= htmlspecialchars($prodi["nama_prodi"]) ?>">
+                                               data-value="<?= $itemProdi["id_prodi"] ?>" 
+                                               data-text="<?= htmlspecialchars($itemProdi["nama_prodi"]) ?>">
                                                 <i class="bi bi-book text-secondary"></i>
-                                                <?= htmlspecialchars($prodi["nama_prodi"]) ?>
+                                                <?= htmlspecialchars($itemProdi["nama_prodi"]) ?>
                                             </a>
                                         </li>
                                     <?php endforeach; ?>
@@ -239,14 +239,14 @@ require_once "components/header.php";
                                 name="tahun_masuk"
                                 min="2000"
                                 max="2099"
-                                value="<?= htmlspecialchars($tahunMasuk) ?>"
+                                value="<?= htmlspecialchars($angkatan) ?>"
                                 required>
                         </div>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-end gap-2 pt-3 border-top" style="border-color: var(--linear-hairline) !important;">
-                        <a href="index.php" class="btn-linear-secondary text-decoration-none">Batal</a>
-                        <button type="submit" class="btn-linear-primary">
+                        <a href="index.php" class="tombol-sekunder text-decoration-none">Batal</a>
+                        <button type="submit" class="tombol-utama">
                             <i class="bi bi-check-lg me-1"></i> Simpan Perubahan
                         </button>
                     </div>
@@ -259,20 +259,20 @@ require_once "components/header.php";
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const prodiItems = document.querySelectorAll(".custom-prodi-item");
-    const hiddenInput = document.getElementById("id_prodi");
-    const labelSpan = document.getElementById("selectedProdiLabel");
+    const daftarPilihanProdi = document.querySelectorAll(".pilihan-prodi");
+    const inputProdi = document.getElementById("inputProdi");
+    const labelProdi = document.getElementById("labelProdiTerpilih");
 
-    prodiItems.forEach(item => {
-        item.addEventListener("click", function (e) {
+    daftarPilihanProdi.forEach(pilihan => {
+        pilihan.addEventListener("click", function (e) {
             e.preventDefault();
-            const value = this.getAttribute("data-value");
-            const text = this.getAttribute("data-text");
+            const nilaiProdi = this.getAttribute("data-value");
+            const teksProdi = this.getAttribute("data-text");
 
-            hiddenInput.value = value;
-            labelSpan.textContent = text;
+            inputProdi.value = nilaiProdi;
+            labelProdi.textContent = teksProdi;
 
-            prodiItems.forEach(i => i.classList.remove("active"));
+            daftarPilihanProdi.forEach(el => el.classList.remove("active"));
             this.classList.add("active");
         });
     });
